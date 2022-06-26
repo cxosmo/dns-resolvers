@@ -35,6 +35,6 @@ jobs:
         run: |
           git config --global user.name ${{ secrets.BOT_USERNAME }}
           git config --global user.email ${{ secrets.BOT_EMAIL }}
-          git add resolvers.txt
-          git commit -m "Update resolvers using https://public-dns.info/nameservers.txt as source"
+          git add resolvers.txt previous-resolvers.txt
+          git commit -m "Update resolvers.txt using https://public-dns.info/nameservers.txt as source"
           git push
