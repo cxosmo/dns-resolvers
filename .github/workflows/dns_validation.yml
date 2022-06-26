@@ -12,15 +12,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install and run dnsvalidator against https://public-dns.info/nameservers.txt
+      - name: Install dnsvalidator
         run: |
           git clone https://github.com/vortexau/dnsvalidator
           cd dnsvalidator
           sudo python3 setup.py install
-          rm ../resolvers.txt || true
-          dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 12 -o  ../resolvers.txt
-          sed -i '/^$/d' ../resolvers.txt
+          
+      - name: Move previous resolvers.txt to previous-resolvers.txt
+        run: mv resolvers.txt previous-resolvers.txt 2>/dev/null
+  
+      - name: Run dnsvalidator
+        run: |
+          cd dnsvalidator
+          dnsvalidator -tL https://public-dns.info/nameservers.txt --silent -threads 12 -o  ../resolvers.txt
           sort -u -o ../resolvers.txt ../resolvers.txt
+          
+      - name: Remove previous-resolvers.txt
+        run: |
+          rm previous-resolvers.txt 2>/dev/null
 
       - name: Config git and push
         run: |
