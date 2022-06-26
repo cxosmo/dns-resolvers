@@ -24,7 +24,7 @@ jobs:
       - name: Run dnsvalidator
         run: |
           cd dnsvalidator
-          dnsvalidator -tL https://public-dns.info/nameservers.txt --silent -threads 12 -o  ../resolvers.txt
+          dnsvalidator -tL https://public-dns.info/nameservers.txt --silent -threads 12 >  ../resolvers.txt
           sort -u -o ../resolvers.txt ../resolvers.txt
           
       - name: Remove previous-resolvers.txt
