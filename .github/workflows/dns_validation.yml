@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Remove previous-resolvers.txt
-        run: rm previous-resolvers.txt 2>/dev/null
+        run: rm previous-resolvers.txt || true
         
         
       - name: Install dnsvalidator
@@ -24,7 +24,7 @@ jobs:
           
           
       - name: Move previous resolvers.txt to previous-resolvers.txt
-        run: mv resolvers.txt previous-resolvers.txt 2>/dev/null
+        run: mv resolvers.txt previous-resolvers.txt || true
   
   
       - name: Run dnsvalidator
